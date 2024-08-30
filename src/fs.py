@@ -9,8 +9,8 @@ from os import path as ospath, walk as dirwalk
 
 class FS:
 
-    def __init__(self):
-        pass
+    # def __init__(self):
+    #     pass
 
     @staticmethod
     def _format_path(
