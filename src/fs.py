@@ -86,3 +86,18 @@ def get_out_path(in_path: str) -> str:
     """
     split_path = in_path.rsplit(".", 1)
     return f"{split_path[0]}(av1).{split_path[1]}"
+
+
+async def write_file(
+    path: str,
+    data: bytes,
+) -> None:
+    """
+    Write data to a file - **yelrom0**
+
+    Args:
+        path (str): The path to the file
+        data (bytes): The data to write
+    """
+    with open(path, "wb") as f:
+        f.write(data)
