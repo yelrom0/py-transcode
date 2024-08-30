@@ -5,10 +5,10 @@ Module for handling command line arguments.
 """
 
 # System Imports
-from argparse import ArgumentParser
+from argparse import ArgumentParser, Namespace
 
 
-def parse_args():
+def parse_args() -> Namespace:
     """
     Parse command line arguments given to the application.
     """
@@ -25,6 +25,7 @@ def parse_args():
         "-r",
         "--recursive",
         help="Recursively find and transcode files in child directories.",
+        action="store_true",
     )
 
     return parser.parse_args()
