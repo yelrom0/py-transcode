@@ -28,4 +28,11 @@ def parse_args() -> Namespace:
         action="store_true",
     )
 
+    parser.add_argument(
+        "-w",
+        "--watch",
+        help="Watch the directory(ies) for new files to transcode.",
+        action="store_true",
+    )
+
     return parser.parse_args()
