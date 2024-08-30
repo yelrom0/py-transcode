@@ -76,6 +76,12 @@ async def transcode_file(path: str, codec: str = "librav1e") -> None:
     # get the video info from the path
     info = VideoInfo(path)
 
+    # check if the file is already in AV1 format
+    # if so, skip transcoding (return)
+    if info.encoding == FileEncodings.AV1:
+        print(f"File {path} is already in AV1 format")
+        return
+
     # set up the progress bar
     with RichProgress(expand=True) as progress_bar:
         # print(info)
