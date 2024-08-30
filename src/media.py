@@ -5,10 +5,11 @@ Module for media operations, currently using python-ffmpeg.
 """
 
 # Package Imports
+from ffmpeg import Progress
 from ffmpeg.asyncio import FFmpeg
 
 # Local Imports
-from src.fs import get_out_path
+from src.fs import get_out_path, write_file
 
 
 async def transcode_file(path: str) -> None:
@@ -17,6 +18,7 @@ async def transcode_file(path: str) -> None:
     Args:
         path (str): Path to the video file
     """
+
     out_path = get_out_path(path)
     # print(out_path)
     ffmpeg = (
@@ -29,7 +31,16 @@ async def transcode_file(path: str) -> None:
         )
     )
 
-    await ffmpeg.execute()
+    @ffmpeg.on("progress")
+    def progress_handler(progress: Progress):
+        """
+        Display progress of ffmpeg transcoding.
+        """
+        print(f"Progress: {progress}")
+
+    data = await ffmpeg.execute()
+    await write_file(out_path, data)
+    print(f"File {out_path} successfully transcoded")
 
 
 async def transcode_files(paths: list[str]) -> None:
@@ -39,22 +50,3 @@ async def transcode_files(paths: list[str]) -> None:
     """
     for path in paths:
         await transcode_file(path)
-
-
-# class Media:
-#     _ffmpeg: FFmpeg
-
-#     def __init__(self) -> None:
-#         # option("y") enables experimental features
-#         self._ffmpeg = FFmpeg().option("y")
-
-#     async def _add_path(self, )
-
-#     @staticmethod
-#     async def transcode_files(paths: list[str]) -> type[FFmpeg]:
-#         """
-#         Transcode a video file to av1 format - **yelrom0**
-#         Args:
-#             paths (list[str]): List of paths to the video files
-#         """
-#         pass
