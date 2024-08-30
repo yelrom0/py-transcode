@@ -15,6 +15,9 @@ from rich.progress import Progress as RichProgress
 from src.fs import get_out_path, write_file
 from src.meta import FileEncodings
 
+# Global Variables
+prev_frame: int = 0
+
 
 class VideoInfo(object):
     """
@@ -74,7 +77,7 @@ async def transcode_file(path: str, codec: str = "librav1e") -> None:
     info = VideoInfo(path)
 
     # set up the progress bar
-    with RichProgress() as progress_bar:
+    with RichProgress(expand=True) as progress_bar:
         # print(info)
         transcode_task = progress_bar.add_task(
             f"Transcoding {path.split("/")[-1]}",
@@ -92,8 +95,6 @@ async def transcode_file(path: str, codec: str = "librav1e") -> None:
             )
         )
 
-        prev_frame: int = 0
-
         @ffmpeg.on("progress")
         def progress_handler(progress: Progress):
             """
@@ -103,10 +104,14 @@ async def transcode_file(path: str, codec: str = "librav1e") -> None:
             and update the progress bar accordingly.
             """
             global prev_frame
+            # print(f"prev_frame after global: {prev_frame}")
 
             current_frame = progress.frame
+            # print(f"current_frame: {current_frame}")
             frame_delta = current_frame - prev_frame
+            # print(f"frame_delta: {frame_delta}")
             prev_frame = current_frame
+            # print(f"prev_frame: {prev_frame}")
 
             progress_bar.update(transcode_task, advance=frame_delta)
             # print(f"Progress: {progress}")
