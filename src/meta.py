@@ -4,8 +4,13 @@ meta.py
 Metadata for the project.
 """
 
-FILE_EXTENSIONS = [
-    "wav",
-    "mp4",
-    "mkv",
-]
+# System Imports
+from enum import Enum
+
+
+class FileExtensions(Enum):
+    WAV = "wav"
+    MP4 = "mp4"
+    MKV = "mkv"
+    AVI = "avi"
+    WEBM = "webm"
