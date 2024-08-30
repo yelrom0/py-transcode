@@ -7,9 +7,10 @@ This is the main entry point for the application.
 from anyio import run
 
 # Local Imports
-from src.fs import get_files
 from src.cli import parse_args
+from src.fs import get_files
 from src.media import transcode_files
+from src.observer import create_watch_dir
 
 
 async def main():
@@ -19,6 +20,10 @@ async def main():
 
     # print(f"Path: {args.path}")
     # print(f"Recursive: {args.recursive}")
+
+    if args.watch:
+        print("Watching for new files")
+        await create_watch_dir(args.path, args.recursive)
 
     files = get_files(args.path, args.recursive)
     await transcode_files(files)
