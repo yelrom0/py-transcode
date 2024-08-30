@@ -70,3 +70,19 @@ def get_files(
             # print(f"Dirs: {subdirs}")
 
     return files
+
+
+def get_out_path(in_path: str) -> str:
+    """
+    Given an input path, return the output path - **yelrom0**
+
+    The function is simple, split at the last period (for file extension),
+    insert "(av1)" before the extension and return.
+
+    Args:
+        in_path (str): The input path
+    Returns:
+        str: The output path
+    """
+    split_path = in_path.split(".")
+    return split_path[-2] + "(av1)" + "." + split_path[-1]
