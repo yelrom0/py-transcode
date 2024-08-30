@@ -23,17 +23,3 @@ class FileEncodings(Enum):
     VP8 = "vp8"
     VP9 = "vp9"
     THEORA = "theora"
-
-
-class VideoInfo(object):
-    """
-    Denotes information about a video file
-
-    encoding: The encoding of the file
-    size: the size of the file (in frame count)
-    path: the file path
-    """
-
-    encoding: FileEncodings
-    size: int
-    path: str
