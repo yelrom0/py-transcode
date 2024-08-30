@@ -6,11 +6,24 @@ Module for file system operations.
 # System Imports
 from os import path as ospath, walk as dirwalk
 
+# Local Imports
+from src.meta import FILE_EXTENSIONS
+
 
 class FS:
 
     # def __init__(self):
     #     pass
+
+    @staticmethod
+    def _check_path(
+        base_path: str,
+        current_path: str,
+    ) -> bool:
+        """
+        Check if the current path is in the same directory as the base path.
+        """
+        return ospath.commonpath([base_path, current_path]) == base_path
 
     @staticmethod
     def _format_path(
@@ -44,20 +57,32 @@ class FS:
             list[str]: A list of all subfiles/dirs
         """
 
+        # format path
         path = FS._format_path(path)
 
         if not ospath.exists(path):
             raise FileNotFoundError(f"Path {path} does not exist")
 
+        # Check if file, if so, check if it is of the correct type
+        # otherwise, return the file
         if ospath.isfile(path):
+            if not path.split(".")[-1] in FILE_EXTENSIONS:
+                raise ValueError(
+                    f"File {path} is not of type {FILE_EXTENSIONS}",
+                )
             return [path]
 
         files = []
         for root, _, filenames in dirwalk(path):
             for filename in filenames:
-                files.append(ospath.join(root, filename))
+                file = ospath.join(root, filename)
+                if file.split(".")[-1] in FILE_EXTENSIONS:
+                    files.append(file)
+                else:
+                    continue
 
             if not recursive:
                 break
+                # print(f"Dirs: {subdirs}")
 
         return files
