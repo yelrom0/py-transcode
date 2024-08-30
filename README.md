@@ -13,6 +13,6 @@ This assumes Python is called with the `python` command. If you run python with 
 
 ### TODO
 
-- [ ] Detect video codec, only transcode files that aren't already av1. This can be done by retreiving the encoding format using [ffprobe](https://github.com/esarjeant/ffprobe3)
+- [ ] Detect video codec, only transcode files that aren't already av1. The data for this is now being gathered, we just need to check it.
 - [ ] Filesystem watch dir feature to auto transcode videos as they're added to specific folders.
-- [ ] Use [Rich](https://rich.readthedocs.io/en/stable/introduction.html) to display ffmpeg progress bars. This is an issue currently, as ffprobe is erroring rather than returning frames.
+- [x] Use [Rich](https://rich.readthedocs.io/en/stable/introduction.html) to display ffmpeg progress bars. This is an issue currently, as ffprobe is erroring rather than returning frames.
