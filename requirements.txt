@@ -1,2 +1,4 @@
 anyio==4.4.0
+ffprobe3-esarjeant==0.1.3
 python-ffmpeg==2.0.12
+rich==13.8.0
