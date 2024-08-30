@@ -1,6 +1,6 @@
 ## Py Transcode
 
-I have many videos, most of my devices can decode AV1 so I for storage sake, this is designed to transcode video files located in the specified dirs.
+I have many videos, most of my devices can decode AV1 so for storage sake, this is designed to transcode video files located in the specified dirs.
 
 ### How to Use
 
