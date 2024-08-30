@@ -7,7 +7,7 @@ Module for file system operations.
 from os import path as ospath, walk as dirwalk
 
 # Local Imports
-from src.meta import FILE_EXTENSIONS
+from src.meta import FileExtensions
 
 
 def _format_path(
@@ -50,9 +50,9 @@ def get_files(
     # Check if file, if so, check if it is of the correct type
     # otherwise, return the file
     if ospath.isfile(path):
-        if not path.split(".")[-1] in FILE_EXTENSIONS:
+        if not path.split(".")[-1] in FileExtensions:
             raise ValueError(
-                f"File {path} is not of type {FILE_EXTENSIONS}",
+                f"File {path} is not of type {FileExtensions}",
             )
         return [path]
 
@@ -60,7 +60,7 @@ def get_files(
     for root, _, filenames in dirwalk(path):
         for filename in filenames:
             file = ospath.join(root, filename)
-            if file.split(".")[-1] in FILE_EXTENSIONS:
+            if file.split(".")[-1] in FileExtensions:
                 files.append(file)
             else:
                 continue
